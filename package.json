@@ -1,0 +1,26 @@
+{
+  "name": "hw-12-employeetracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spaceboundbear/HW-12-EmployeeTracker.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/spaceboundbear/HW-12-EmployeeTracker/issues"
+  },
+  "homepage": "https://github.com/spaceboundbear/HW-12-EmployeeTracker#readme",
+  "dependencies": {
+    "console.table": "^0.10.0",
+    "inquirer": "^8.2.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^2.3.2"
+  }
+}

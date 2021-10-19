@@ -5,7 +5,7 @@ USE employees_db;
 -- create tables for department, employee, and role
 CREATE TABLE department (
     id: INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    f_name: VARCHAR(30) NOT NULL,
+    d_name: VARCHAR(30) NOT NULL,
 );
 
 CREATE TABLE roles (
