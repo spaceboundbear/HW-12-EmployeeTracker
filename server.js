@@ -97,45 +97,47 @@ function vRoles() {
   });
 }
 
-addEmployees = () => {
+function addEmployees() {
   inquirer
     .prompt([
       {
         type: 'input',
-        name: 'first_name',
+        name: 'firstName',
         message: 'Enter Employee First Name',
       },
       {
         type: 'input',
-        name: 'last_name',
+        name: 'lastName',
         message: 'Enter Employee Last Name',
       },
       {
         type: 'input',
-        name: 'emp_role',
+        name: 'empRole',
         message: 'Enter Employee Role ID',
       },
       {
         type: 'input',
-        name: 'emp_manager',
+        name: 'empManager',
         message: 'Enter Employee Manager ID',
       },
     ])
-    .then((res) => {
-      const firstName = res.first_name;
-      const lastName = res.last_name;
-      const empRole = res.emp_role;
-      const empManager = res.emp_manager;
-      const query = `INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES ('${firstName}', '${lastName}', '${empRole}', '${empManager}')`;
-      db.query(query, (err, res) => {
-        if (err) {
-          throw err;
+    .then(function (response) {
+      db.query(
+        'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)',
+        [
+          response.firstName,
+          response.lastName,
+          response.empRole,
+          response.empManager,
+        ],
+        function (err, res) {
+          if (err) throw err;
+          console.table(res);
+          init();
         }
-        console.table(res);
-        init();
-      });
+      );
     });
-};
+}
 
 function addDepartment() {
   inquirer
@@ -173,21 +175,19 @@ function addRole() {
       {
         type: 'input',
         name: 'new_dept_id',
-        message: 'Enter Department ID',
+        message: 'Enter Department ID#',
       },
     ])
-    .then((res) => {
-      const newRole = res.new_role;
-      const newSalary = res.new_salary;
-      const newDeptID = res.new_dept_id;
-      const query = `INSERT INTO role (title, salary, department_id) VALUES ('${newRole}', '${newSalary}', '${newDeptID}')`;
-      db.query(query, (err, res) => {
-        if (err) {
-          throw err;
+    .then((response) => {
+      db.query(
+        'INSERT INTO roles (role_name, salary, department_id) VALUES (?, ?, ?)',
+        [response.new_role, response.new_salary, response.new_dept_id],
+        (err, res) => {
+          if (err) throw err;
+          console.table(res);
+          init();
         }
-        console.table(res);
-        init();
-      });
+      );
     });
 }
 
