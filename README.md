@@ -10,6 +10,12 @@
   7.[Questions](#questions)</br>  
 
 
+![Capture](https://user-images.githubusercontent.com/86039208/138156298-a41d5d3f-d3c5-413a-b0c6-7f97aef2212e.PNG)
+
+# LINK TO VIDEO: https://vimeo.com/637185974/5ca503a535
+
+
+
   # <span id="desc"></span>
   # Project Description: 
   This application allows you to add, edit, and remove employees from a database, and also lets you add and update roles and departments for a company
