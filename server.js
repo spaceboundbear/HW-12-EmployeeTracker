@@ -1,13 +1,13 @@
 const inquirer = require('inquirer');
 const mysql = require('mysql');
-const consoleTable = require('console.table');
+const cTable = require('console.table');
 
 const db = mysql.createConnection(
   {
     host: 'localhost',
     port: '3306',
     user: 'root',
-    password: 'lauren123',
+    password: 'password',
     database: 'employees_db',
   },
   console.log('Connected to Employees Database')
@@ -29,8 +29,8 @@ function init() {
         'Quit',
       ],
     })
-    .then((response) => {
-      switch (response.choices) {
+    .then((res) => {
+      switch (res.choices) {
         case 'View Employees':
           vEmployees();
           break;
@@ -66,37 +66,38 @@ function init() {
         case 'Delete Roles':
           deleteRoles();
           break;
-
-        case 'Quit':
-          endSession();
-          break;
       }
     });
 }
 
 function vEmployees() {
-  db.query('SELECT * FROM employee', (err, res) => {
+  let query = 'SELECT * FROM employee';
+  db.query(query, function (err, res) {
+    if (err) throw err;
     console.table(res);
     init();
   });
 }
 
 function vDepartments() {
-  db.query('SELECT name FROM department'),
-    (err, res) => {
-      console.table(res);
-      init();
-    };
-}
-
-function vRoles() {
-  db.query('SELECT title FROM roles', (err, res) => {
+  let query = 'SELECT * FROM department';
+  db.query(query, function (err, res) {
+    if (err) throw err;
     console.table(res);
     init();
   });
 }
 
-function addEmployees() {
+function vRoles() {
+  let query = 'SELECT * FROM roles';
+  db.query(query, (err, res) => {
+    if (err) throw err;
+    console.table(res);
+    init();
+  });
+}
+
+addEmployees = () => {
   inquirer
     .prompt([
       {
@@ -134,25 +135,25 @@ function addEmployees() {
         init();
       });
     });
-}
+};
 
 function addDepartment() {
   inquirer
     .prompt({
       type: 'input',
-      name: 'new_dept',
-      message: 'Enter New Department Name',
+      message: 'What is the name of the department?',
+      name: 'deptName',
     })
-    .then((res) => {
-      const newDept = res.new_dept;
-      const query = `INSERT INTO department (d_name) VALUES ('${newDept}')`;
-      db.query(query, (err, res) => {
-        if (err) {
-          throw err;
+    .then(function (answer) {
+      db.query(
+        'INSERT INTO department (dept_name) VALUES (?)',
+        [answer.deptName],
+        function (err, res) {
+          if (err) throw err;
+          console.table(res);
+          init();
         }
-        console.table(res);
-        init();
-      });
+      );
     });
 }
 
